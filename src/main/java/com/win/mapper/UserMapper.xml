@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 首先来解析 namespace: 命名空间,此属性通常用来映射Dao层接口. -->
+<mapper namespace="com.win.dao.UserDao">
+
+    <resultMap id="UserMap" type="User">
+        <id column="id" property="id" />
+        <result column="userName" property="userName" />
+        <result column="userAge" property="userAge" />
+        <result column="userAddress" property="userAddress" />
+    </resultMap>
+
+    <!-- id: 对应Dao层接口方法名 parameterType：指定输入参数类型 -->
+    <!-- useGeneratedKeys="true"把新增加的主键赋值到自己定义的keyProperty（id）中 -->
+    <select id="selectUser" parameterType="int" resultType="com.win.model.User">select * from `user` where id=#{id}</select>
+    <select id="selectAllUsers" resultMap="UserMap">select * from `user`</select>
+    <insert id="insertUser" parameterType="com.win.model.User" useGeneratedKeys="true" keyProperty="id">
+      INSERT INTO `user`(`userName`, `userAge`,`userAddress`)values (#{userName}, #{userAge}, #{userAddress})
+        <selectKey keyProperty="id" resultType="java.lang.Integer">
+            select LAST_INSERT_ID() as id
+        </selectKey>
+    </insert>
+    <update id="updateUser" parameterType="com.win.model.User"> update `user` set userName=#{userName}, userAge=#{userAge}, userAddress=#{userAddress} where id=#{id} </update>
+    <delete id="deleteUser" parameterType="java.lang.Integer">delete from `user` where id=#{id} </delete>
+    <delete id="emptyUser">truncate table `user`</delete>
+    <select id="selectUserByName" parameterType="string" resultMap="UserMap">
+        SELECT * FROM `user` WHERE  userName LIKE concat(concat('%',#{userName}),'%')
+    </select>
+
+</mapper>
