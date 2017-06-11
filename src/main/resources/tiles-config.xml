@@ -21,6 +21,7 @@
     <!-- 配置视图解析器 -->
     <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+        <!--视图解析顺序-->
         <property name="order" value="1"/>
     </bean>
 

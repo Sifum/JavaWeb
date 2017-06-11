@@ -20,11 +20,11 @@
         <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
     </context:component-scan>
 
+    <!--自动注册DefaultAnnotationHandlerMapping与AnnotationMethodHandlerAdapter 两个bean,是spring MVC为@Controllers分发请求所必须的-->
     <mvc:annotation-driven />
 
     <!--静态资源配置-->
     <mvc:resources location="/WEB-INF/assets/" mapping="/assets/**"></mvc:resources>
-
 
     <!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
     <!-- 支持JSON数据格式 -->
@@ -63,9 +63,11 @@
     <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/views/" p:suffix=".jsp">-->
     <!--</bean>-->
 
+    <!--引入freeMarker和tiles配置文件-->
     <import resource="freemarker-config.xml"/>
     <import resource="tiles-config.xml"/>
 
+    <!--使jsp使用jstl标签来处理格式化和信息，通过InternalResourceViewResolver将视图解析为JstlView-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass">
             <value>org.springframework.web.servlet.view.JstlView</value>

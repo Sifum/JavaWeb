@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <!--别名，可以在Mapper文件中使用-->
     <typeAliases>
         <typeAlias alias="User" type="com.win.model.User" />
     </typeAliases>
